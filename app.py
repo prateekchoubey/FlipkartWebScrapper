@@ -29,7 +29,7 @@ def index():
             prodRes = requests.get(productLink)
             prodRes.encoding='utf-8'
             prod_html = bs(prodRes.text, "html.parser")
-            print(prod_html)
+            # print(prod_html.encode("utf-8"))
             commentboxes = prod_html.find_all('div', {'class': "_16PBlm"})
 
             filename = searchString + ".csv"
@@ -39,23 +39,23 @@ def index():
             reviews = []
             for commentbox in commentboxes:
                 try:
-                    #name.encode(encoding='utf-8')
+                    # name.encode(encoding='utf-8')
                     name = commentbox.div.div.find_all('p', {'class': '_2sc7ZR _2V5EHH'})[0].text
 
                 except:
                     logging.info("name")
 
                 try:
-                    #rating.encode(encoding='utf-8')
+                    # rating.encode(encoding='utf-8')
                     rating = commentbox.div.div.div.div.text
 
 
                 except:
                     rating = 'No Rating'
-                    logging.info("rating")
+                    logging.info(rating)
 
                 try:
-                    #commentHead.encode(encoding='utf-8')
+                    # commentHead.encode(encoding='utf-8')
                     commentHead = commentbox.div.div.div.p.text
 
                 except:
@@ -63,7 +63,7 @@ def index():
                     logging.info(commentHead)
                 try:
                     comtag = commentbox.div.div.find_all('div', {'class': ''})
-                    #custComment.encode(encoding='utf-8')
+                    # custComment.encode(encoding='utf-8')
                     custComment = comtag[0].div.text
                 except Exception as e:
                     logging.info(e)
